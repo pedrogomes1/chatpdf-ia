@@ -1,7 +1,8 @@
-import { Button } from "@/components/ui/button";
-import { SignIn, auth } from "@clerk/nextjs";
 import { LogIn } from "lucide-react";
+import { auth } from "@clerk/nextjs";
 import Link from "next/link";
+import { FileUpload } from "@/components/fileUpload";
+import { Button } from "@/components/ui/button";
 
 export default async function Home() {
   const { userId } = await auth();
@@ -9,13 +10,13 @@ export default async function Home() {
   const isAuth = !!userId;
   return (
     <div className="w-screen h-screen">
-      <main className="flex flex-col h-full items-center justify-center">
+      <main className="flex flex-col gap-5 w-full max-w-lg mx-auto h-full items-center justify-center">
         <h1 className="text-slate-50 text-3xl mb-5">Welcome to ChatPDF</h1>
 
-        {isAuth && <Button>Go to chats</Button>}
+        {isAuth && <Button variant="secondary">Go to chats</Button>}
 
         {isAuth ? (
-          <h1>file</h1>
+          <FileUpload />
         ) : (
           <Link href="/auth/sign-in">
             <Button>
