@@ -9,7 +9,7 @@ interface ChatSideBarProps {
   chatId: number;
 }
 
-export default async function ChatSideBar({ chats, chatId }: ChatSideBarProps) {
+export default function ChatSideBar({ chats, chatId }: ChatSideBarProps) {
   return (
     <div className="w-full h-screen p-4 text-gray-200 bg-cyan-600 flex flex-col">
       <Link href="/">
