@@ -31,24 +31,24 @@ export const getPineconeClient = async () => {
 };
 
 export async function loadS3IntoPinecone(fileKey: string) {
-  //get pdf -> download and read from pdf
-
+  // Get pdf -> download and read from pdf
   try {
     const file_name = (await downloadFromS3(fileKey)) as string;
-
     if (!file_name) {
       throw new Error("Could not download from S3");
     }
+
     const loader = new PDFLoader(file_name);
+
     const pages = (await loader.load()) as PDFPage[];
 
-    // split and segment the pdf
+    // Split and segment the pdf
     const documents = await Promise.all(pages.map(prepareDocument));
 
-    //  vectorise and embed individual documents
+    // Vectorise and embed individual documents
     const vectors = await Promise.all(documents.flat().map(embedDocument));
 
-    //  upload to pinecone
+    // Upload to pinecone
     const client = await getPineconeClient();
     const pineconeIndex = client.Index("chatpdf");
 

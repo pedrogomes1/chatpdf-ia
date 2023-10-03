@@ -6,7 +6,7 @@ const config = new Configuration({
 
 const openai = new OpenAIApi(config);
 
-//convert text in a vector
+// Convert text in a vector
 export async function getEmbeddings(text: String) {
   try {
     const response = await openai.createEmbedding({
@@ -18,5 +18,6 @@ export async function getEmbeddings(text: String) {
     return result.data[0].embedding as number[];
   } catch (error) {
     console.error("error calling openai embeddings api", error);
+    throw error;
   }
 }
